@@ -48,7 +48,13 @@ ConfigurationOfConceptualSchema >> default: spec [
 		spec repository: 'http://www.squeaksource.com/MooseJEE'.
 
 		spec 
-			package: 'Moose-JEE-ConceptualSchema'.
+			package: 'Moose-JEE-ConceptualSchema';
+			package: 'Moose-JEE-DesignPattern'.
+
+		"tests"
+		spec 
+			package: 'Moose-JEE-Tests-ConceptualSchema';
+			package: 'Moose-JEE-Tests-DesignPattern'.
 	]
 ]
 
