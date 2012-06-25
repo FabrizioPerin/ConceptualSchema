@@ -13,11 +13,11 @@ Class {
 { #category : #'as yet unclassified' }
 ConceptualSchemaConcept class >> named: aString containing: aCollectionOfEntities [
 
-	^ self new entityName: aString; addAllMappedEntitiesIn: aCollectionOfEntities
+	^ self new entityName: aString; addMappedEntitiesIn: aCollectionOfEntities
 ]
 
 { #category : #'as yet unclassified' }
-ConceptualSchemaConcept >> addAllMappedEntitiesIn: aCollectionOfEntities [
+ConceptualSchemaConcept >> addMappedEntitiesIn: aCollectionOfEntities [
 	containedEntiies addAll: aCollectionOfEntities 
 ]
 

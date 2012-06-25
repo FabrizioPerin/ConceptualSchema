@@ -25,3 +25,24 @@ ConceptualSchema >> allConcepts [
 	group description: 'Concepts'.
 	^group
 ]
+
+{ #category : #'as yet unclassified' }
+ConceptualSchema >> fileoutOnCVSConceptList [
+	| aStream |
+
+	aStream := MultiByteFileStream forceNewFileNamed: 'concepts.csv'.
+	
+	"header"
+	aStream nextPutAll: 'Concept Name Size' , ';' , 'Concept' , ';' , 'Contained Entities' , String cr.
+	
+	"content"
+	self allConcepts do: [:concept |
+		aStream nextPutAll: concept entityName size asString , ';'.
+		aStream nextPutAll: concept entityName , ';'.
+		concept mappedEntities do: [:entity |
+			entity printOn: aStream.
+			aStream nextPutAll: ', '.].
+		aStream nextPutAll: String cr ].
+
+	aStream close.
+]
