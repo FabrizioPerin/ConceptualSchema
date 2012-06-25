@@ -27,7 +27,7 @@ ConceptualSchema >> allConcepts [
 ]
 
 { #category : #'as yet unclassified' }
-ConceptualSchema >> fileoutOnCVSConceptList [
+ConceptualSchema >> fileoutConceptListAsCSV [
 	| aStream |
 
 	aStream := MultiByteFileStream forceNewFileNamed: 'concepts.csv'.
@@ -45,4 +45,51 @@ ConceptualSchema >> fileoutOnCVSConceptList [
 		aStream nextPutAll: String cr ].
 
 	aStream close.
+]
+
+{ #category : #'as yet unclassified' }
+ConceptualSchema >> fileoutConceptListAsLaTexTable [
+	| aStream numberOfResults sortedConcepts index |
+
+	numberOfResults := 10.
+	index := 1.
+
+	aStream := MultiByteFileStream forceNewFileNamed: 'conceptsList.tex'.
+	
+	aStream nextPutAll: 
+		'\begin{table*}[h!t]' , String cr , 
+		'\begin{center}' , String cr ,
+		'\begin{tabular}{c|l|m{0.65\textwidth}}' , String cr.
+
+	"header"
+	aStream nextPutAll: 'Concept Name Size' , String tab , '& ' , 'Concept' , String tab , '& ' , 'Contained Entities' , '\\' , String cr.
+	
+	"content"
+	sortedConcepts := (self allConcepts sorted: [:a :b | a entityName size > b entityName size ]).
+	sortedConcepts do: [:concept |
+		aStream nextPutAll: concept entityName size asString , String tab , '&'.
+		aStream nextPutAll: concept entityName , String tab , '& '.
+		
+		concept mappedEntities first printOn: aStream.
+		(2 to: concept mappedEntities size) do: [:entityIndex |
+			aStream nextPutAll: ', '.
+			(concept mappedEntities at: entityIndex) mooseNameOn: aStream ].
+
+		aStream nextPutAll: '\\'.
+		aStream nextPutAll: String cr. 
+		
+		(index < numberOfResults) ifFalse: [			
+			aStream nextPutAll: 
+			'\end{tabular}' , String cr , 
+			'\caption{First' , numberOfResults asString  , 'concepts and content}' , String cr ,
+			'\label{tab:conceptList}' , String cr ,
+			'\end{center}' , String cr ,
+			'\end{table*}' , String cr.
+
+			aStream close. 
+			^index ].
+		
+		index := index + 1 ].
+
+	
 ]
