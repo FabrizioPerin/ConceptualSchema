@@ -49,28 +49,29 @@ ConceptualSchema >> fileoutConceptListAsCSV [
 
 { #category : #'as yet unclassified' }
 ConceptualSchema >> fileoutConceptListAsLaTexTable [
-	| aStream numberOfResults sortedConcepts index |
+	| aStream numberOfResults index |
 
 	numberOfResults := 10.
 	index := 1.
 
-	aStream := MultiByteFileStream forceNewFileNamed: 'conceptsList.tex'.
+	aStream := MultiByteFileStream forceNewFileNamed: 'conceptsTable.tex'.
 	
 	aStream nextPutAll: 
 		'\begin{table*}[h!t]' , String cr , 
 		'\begin{center}' , String cr ,
-		'\begin{tabular}{c|l|m{0.65\textwidth}}' , String cr.
+		'\begin{tabular}{c|p{0.15\textwidth}|p{0.65\textwidth}}' , String cr.
 
 	"header"
-	aStream nextPutAll: 'Concept Name Size' , String tab , '& ' , 'Concept' , String tab , '& ' , 'Contained Entities' , '\\' , String cr.
+	aStream nextPutAll: '{\bf Concept Name Size}' , String tab , '& ' , '{\bf Concept}' , String tab , '& ' , '{\bf Contained Entities}' , '\\' , String cr.
 	
 	"content"
-	sortedConcepts := (self allConcepts sorted: [:a :b | a entityName size > b entityName size ]).
-	sortedConcepts do: [:concept |
+	(self allConcepts sorted: [:a :b | a entityName size > b entityName size ]) do: [:concept |
+		aStream nextPutAll: '\hline'.
+		aStream nextPutAll: String cr. 
 		aStream nextPutAll: concept entityName size asString , String tab , '&'.
 		aStream nextPutAll: concept entityName , String tab , '& '.
 		
-		concept mappedEntities first printOn: aStream.
+		concept mappedEntities first mooseNameOn: aStream.
 		(2 to: concept mappedEntities size) do: [:entityIndex |
 			aStream nextPutAll: ', '.
 			(concept mappedEntities at: entityIndex) mooseNameOn: aStream ].
@@ -81,7 +82,7 @@ ConceptualSchema >> fileoutConceptListAsLaTexTable [
 		(index < numberOfResults) ifFalse: [			
 			aStream nextPutAll: 
 			'\end{tabular}' , String cr , 
-			'\caption{First' , numberOfResults asString  , 'concepts and content}' , String cr ,
+			'\caption{First ' , numberOfResults asString  , ' concepts by size}' , String cr ,
 			'\label{tab:conceptList}' , String cr ,
 			'\end{center}' , String cr ,
 			'\end{table*}' , String cr.
