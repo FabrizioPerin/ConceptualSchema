@@ -101,7 +101,7 @@ MJCCLCSExperimentsOnAdempiere >> createConceptsFrom: aDictionary [
 		value do: [:each | tables addAll: each mappedRelationalEntities ].
 		"tables size > 0 ifTrue: [self halt.]."
 		concept := ConceptualSchemaConcept named: key asString containing: value.
-		concept addAllMappedEntitiesIn: tables.
+		concept addMappedEntitiesIn: tables.
 		concepts add: concept. ].
 
 	^ concepts
