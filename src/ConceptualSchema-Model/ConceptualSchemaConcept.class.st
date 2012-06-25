@@ -79,5 +79,5 @@ ConceptualSchemaConcept >> outgoingConceptAssociation [
 { #category : #'as yet unclassified' }
 ConceptualSchemaConcept >> printOn: aStream [
 	aStream nextPutAll: self entityName.
-	aStream nextPutAll: ' (Concept).'
+	aStream nextPutAll: ' (Concept)'
 ]
