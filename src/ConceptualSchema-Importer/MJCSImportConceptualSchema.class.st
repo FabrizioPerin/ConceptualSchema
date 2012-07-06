@@ -12,7 +12,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 MJCSImportConceptualSchema class >> on: aTargetModel [
-	^ self new targetModel: aTargetModel ; threshold: 3.
+	^ self new targetModel: aTargetModel.
 ]
 
 { #category : #'as yet unclassified' }
@@ -70,14 +70,16 @@ MJCSImportConceptualSchema >> computeLCSSOf: aString and: anotherString andPrint
 			ifTrue: [
 				| res |
 				res := lcssAlgo result first. 
-				( res size > self threshold )
-					ifTrue: [
-						"(res beginsWith: '_' ) ifTrue: [self halt]. "
-						res := self applyFilterOn: res.
-						( res size > self threshold) 
-							ifTrue: [
-								lcssAlgo writeResultAsCVSEntryOn: aStream.
-								^ res ] ] ]. 
+				( ( ( lcssAlgo firstSequence size * ( 0.55 ) ) asInteger < res size ) 
+					and: [( ( lcssAlgo secondSequence size * ( 0.55 ) ) asInteger < res size ) ] )
+						ifTrue: [
+							"(res beginsWith: '_' ) ifTrue: [self halt]. "
+							res := self applyFilterOn: res.
+							( ( ( lcssAlgo firstSequence size * ( 0.55 ) ) asInteger < res size ) 
+								and: [( ( lcssAlgo secondSequence size * ( 0.55 ) ) asInteger < res size ) ] )
+									ifTrue: [
+										lcssAlgo writeResultAsCVSEntryOn: aStream.
+										^ res ] ] ]. 
 	^ nil
 						
 ]
@@ -92,10 +94,10 @@ MJCSImportConceptualSchema >> createConceptsFrom: aDictionary [
 		| tables concept |
 		tables := Set new.
 		value do: [:each | tables addAll: each mappedRelationalEntities ].
-		"tables size > 0 ifTrue: [self halt.]."
-		concept := ConceptualSchemaConcept named: key asString containing: value.
-		concept addAllMappedEntitiesIn: tables.
-		concepts add: concept. ].
+		tables size > 0 ifTrue: [
+			concept := ConceptualSchemaConcept named: key asString containing: value.
+			concept addMappedEntitiesIn: tables.
+			concepts add: concept ] ].
 
 	^ concepts
 ]
@@ -124,13 +126,6 @@ MJCSImportConceptualSchema >> importActiveRecordClassListFromFile: aFileName [
 		classNames add: ln].
 	
 	^classNames
-]
-
-{ #category : #'as yet unclassified' }
-MJCSImportConceptualSchema >> importActiveRecordClassListFromactiveRecordsTxt [
-
-	^self findModelClassesFrom: (self importActiveRecordClassListFromFile:  '/Users/fabrizioperin/Development/Pharo/Projects/CollaborazioneArcelli/activeRecords.txt')
-
 ]
 
 { #category : #experiments }
@@ -163,7 +158,7 @@ MJCSImportConceptualSchema >> importFromFile [
 MJCSImportConceptualSchema >> initialize [ 
 
 	resultsDictionary := Dictionary new.
-	self threshold: 5.
+	self threshold: 4.
 	self sourceModel: (ConceptualSchema new name: 'Conceptual schema').
 	
 	^self 
@@ -179,6 +174,17 @@ MJCSImportConceptualSchema >> populateSourceModelWith: concepts [
 { #category : #accessing }
 MJCSImportConceptualSchema >> resultsDictionary [
 	^resultsDictionary
+]
+
+{ #category : #experiments }
+MJCSImportConceptualSchema >> secondPassFrom: aCollectionOfClasses [
+	
+	| lcssAlgo |
+
+	self resultsDictionary keys do: [:key |
+		aCollectionOfClasses do: [:class |
+			
+			] ].	
 ]
 
 { #category : #'as yet unclassified' }
