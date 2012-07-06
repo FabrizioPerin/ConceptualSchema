@@ -27,28 +27,7 @@ ConceptualSchema >> allConcepts [
 ]
 
 { #category : #'as yet unclassified' }
-ConceptualSchema >> fileoutConceptListAsCSV [
-	| aStream |
-
-	aStream := MultiByteFileStream forceNewFileNamed: 'concepts.csv'.
-	
-	"header"
-	aStream nextPutAll: 'Concept Name Size' , ';' , 'Concept' , ';' , 'Contained Entities' , String cr.
-	
-	"content"
-	self allConcepts do: [:concept |
-		aStream nextPutAll: concept entityName size asString , ';'.
-		aStream nextPutAll: concept entityName , ';'.
-		concept mappedEntities do: [:entity |
-			entity printOn: aStream.
-			aStream nextPutAll: ', '.].
-		aStream nextPutAll: String cr ].
-
-	aStream close.
-]
-
-{ #category : #'as yet unclassified' }
-ConceptualSchema >> fileoutConceptListAsLaTexTable [
+ConceptualSchema >> fileoutAsLaTexTable: aConceptList [
 	| aStream numberOfResults index |
 
 	numberOfResults := 10.
@@ -65,7 +44,7 @@ ConceptualSchema >> fileoutConceptListAsLaTexTable [
 	aStream nextPutAll: '{\bf Concept Name Size}' , String tab , '& ' , '{\bf Concept}' , String tab , '& ' , '{\bf Contained Entities}' , '\\' , String cr.
 	
 	"content"
-	(self allConcepts sorted: [:a :b | a entityName size > b entityName size ]) do: [:concept |
+	aConceptList do: [:concept |
 		aStream nextPutAll: '\hline'.
 		aStream nextPutAll: String cr. 
 		aStream nextPutAll: concept entityName size asString , String tab , '&'.
@@ -93,4 +72,35 @@ ConceptualSchema >> fileoutConceptListAsLaTexTable [
 		index := index + 1 ].
 
 	
+]
+
+{ #category : #'as yet unclassified' }
+ConceptualSchema >> fileoutConceptListAsCSV [
+	| aStream |
+
+	aStream := MultiByteFileStream forceNewFileNamed: 'concepts.csv'.
+	
+	"header"
+	aStream nextPutAll: 'Concept Name Size' , ';' , 'Concept' , ';' , 'Contained Entities' , String cr.
+	
+	"content"
+	self allConcepts do: [:concept |
+		aStream nextPutAll: concept entityName size asString , ';'.
+		aStream nextPutAll: concept entityName , ';'.
+		concept mappedEntities do: [:entity |
+			entity printOn: aStream.
+			aStream nextPutAll: ', '.].
+		aStream nextPutAll: String cr ].
+
+	aStream close.
+]
+
+{ #category : #'as yet unclassified' }
+ConceptualSchema >> fileoutConceptListAsLaTexTableLongestResults [
+	self fileoutAsLaTexTable: (self allConcepts sorted: [:a :b | a entityName size > b entityName size ])
+]
+
+{ #category : #'as yet unclassified' }
+ConceptualSchema >> fileoutConceptListAsLaTexTableShortestResults [
+	self fileoutAsLaTexTable: (self allConcepts sorted: [:a :b | a entityName size < b entityName size ])
 ]
