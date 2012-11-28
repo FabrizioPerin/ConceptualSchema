@@ -1,6 +1,6 @@
 Class {
 	#name : #ConceptualSchemaConceptAssociation,
-	#superclass : #BAAssociation,
+	#superclass : #MJAssociation,
 	#instVars : [
 		'source',
 		'target',
