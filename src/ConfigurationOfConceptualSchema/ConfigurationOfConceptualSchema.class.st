@@ -51,6 +51,7 @@ ConfigurationOfConceptualSchema >> default: spec [
 			package: 'ConceptualSchema-Model';
 			package: 'ConceptualSchema-Importer';
 			package: 'ConceptualSchema-experiment';
+			package: 'ConceptualSchema-Plazma-XMLElements';
 			package: 'Moose-JEE-DesignPattern'.
 
 		"tests"
