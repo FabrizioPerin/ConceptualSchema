@@ -1,16 +1,16 @@
 Class {
-	#name : #MJCSPetitSQLiteParserTests,
-	#superclass : #PetitSQLiteASTNodesParserTests,
+	#name : #MJCSPetitSQLiteParserTest,
+	#superclass : #PetitSQLiteASTNodesParserTest,
 	#category : #'ConceptualSchema-Tests-Importer'
 }
 
 { #category : #'as yet unclassified' }
-MJCSPetitSQLiteParserTests >> parserClass [
+MJCSPetitSQLiteParserTest >> parserClass [
 	^MJCSPetitSQLiteParser 
 ]
 
 { #category : #'as yet unclassified' }
-MJCSPetitSQLiteParserTests >> testKey [
+MJCSPetitSQLiteParserTest >> testKey [
 		
 	self
 		parse: 'key'
@@ -23,7 +23,7 @@ MJCSPetitSQLiteParserTests >> testKey [
 ]
 
 { #category : #'as yet unclassified' }
-MJCSPetitSQLiteParserTests >> testTableConstraintPrimaryKeyPartForMYSQLOneColumn [
+MJCSPetitSQLiteParserTest >> testTableConstraintPrimaryKeyPartForMYSQLOneColumn [
 
 	self 
 		parse: 'key wahtever (column)'
@@ -37,7 +37,7 @@ self assert: (result isMemberOf: SQLTableConstraintNode).
 ]
 
 { #category : #'as yet unclassified' }
-MJCSPetitSQLiteParserTests >> testTableConstraintPrimaryKeyPartForMYSQLTwoColumns [
+MJCSPetitSQLiteParserTest >> testTableConstraintPrimaryKeyPartForMYSQLTwoColumns [
 
 	self 
 		parse: 'key wahtever (column1 , column2)'
