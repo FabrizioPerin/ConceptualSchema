@@ -56,7 +56,7 @@ ConfigurationOfConceptualSchema >> default: spec [
 
 		"tests"
 		spec 
-			package: 'ConceptualSchema-Tests-Importer';
+			package: 'ConceptualSchema-Tests-Importer' with: [spec requires: #('ConceptualSchema-Importer').];
 			package: 'Moose-JEE-Tests-DesignPattern'.
 	]
 ]
