@@ -48,7 +48,7 @@ MooseModel >> importDBXMLMappingFrom: aFolderPath [
 
 { #category : #'*conceptualschema-importer' }
 MooseModel >> importDBXMLMappingFromGUI [
-	<menuItem: 'Import database mapping from XML files' category: 'Import / Export'>
+	<menuItem: 'Import database mapping from XML files' category: 'JEAs Importers'>
 	
 	| folder |
 	
