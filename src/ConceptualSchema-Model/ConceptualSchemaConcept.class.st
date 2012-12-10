@@ -2,10 +2,10 @@ Class {
 	#name : #ConceptualSchemaConcept,
 	#superclass : #FAMIXEntity,
 	#instVars : [
-		'containedEntiies',
 		'entityName',
 		'outgoingConceptAssociation',
-		'incomingConceptAssociation'
+		'incomingConceptAssociation',
+		'containedEntities'
 	],
 	#category : #'ConceptualSchema-Model'
 }
@@ -18,12 +18,12 @@ ConceptualSchemaConcept class >> named: aString containing: aCollectionOfEntitie
 
 { #category : #'as yet unclassified' }
 ConceptualSchemaConcept >> addMappedEntitiesIn: aCollectionOfEntities [
-	containedEntiies addAll: aCollectionOfEntities 
+	containedEntities addAll: aCollectionOfEntities 
 ]
 
 { #category : #'as yet unclassified' }
 ConceptualSchemaConcept >> addMappedEntity: anEntity [
-	containedEntiies add: anEntity 
+	containedEntities add: anEntity 
 ]
 
 { #category : #'as yet unclassified' }
@@ -48,7 +48,7 @@ ConceptualSchemaConcept >> incomingConceptAssociation [
 ConceptualSchemaConcept >> initialize [
 
 	super initialize.
-	containedEntiies := Set new.
+	containedEntities := Set new.
 	outgoingConceptAssociation := FMMultivalueLink on: self opposite: #source:.
 	incomingConceptAssociation := FMMultivalueLink on: self opposite: #target:.
 	
@@ -60,7 +60,7 @@ ConceptualSchemaConcept >> initialize [
 ConceptualSchemaConcept >> mappedEntities [
 	<MSEProperty: #mappedEntities type: #MooseGroup>
 	<MSEComment: 'Type of the elements contained into this group'>
-	^containedEntiies asMooseGroup 
+	^containedEntities asMooseGroup 
 ]
 
 { #category : #'as yet unclassified' }
