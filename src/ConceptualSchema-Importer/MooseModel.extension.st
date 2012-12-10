@@ -1,6 +1,13 @@
 Extension { #name : #MooseModel }
 
 { #category : #'*conceptualschema-importer' }
+MooseModel >> importCSFromPlazmaGUI [
+	<menuItem: 'Import Concepts for Plazma' category: 'JEAs Importers'>
+	
+	(MJCSImportConceptualSchemaFromPlazma on: self) importCCOfPlazsma .
+]
+
+{ #category : #'*conceptualschema-importer' }
 MooseModel >> importDBStructureConceptualSchemaCustomFrom: aFileStream [
 	
 	| parser result ejbVer |

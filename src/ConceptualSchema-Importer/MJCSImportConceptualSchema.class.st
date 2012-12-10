@@ -140,9 +140,23 @@ MJCSImportConceptualSchema >> importFrom: aFileName [
 ]
 
 { #category : #experiments }
+MJCSImportConceptualSchema >> importFromAClassGroup: aMooseClassGroup [
+	| concepts called excludedClasses |
+
+	self LCSSOn: aMooseClassGroup.
+	
+	
+	concepts := self createConceptsFrom: self resultsDictionary.
+	excludedClasses := (concepts flatCollect: [:concept | concept mappedEntities ]) select: [:each | each isMemberOf: FAMIXClass ].
+	concepts addAll: (self createLonelyConcepts: (aMooseClassGroup asSet difference: excludedClasses asSet)).
+	self halt.
+	self populateSourceModelWith: concepts.
+]
+
+{ #category : #experiments }
 MJCSImportConceptualSchema >> importFromActiveRecord [
 	
-	self importFrom: '/Users/fabrizioperin/Development/Pharo/Projects/CollaborazioneArcelli/activeRecords.txt'.
+	self importFromFile: '/Users/fabrizioperin/Development/Pharo/Projects/CollaborazioneArcelli/activeRecords.txt'.
 	
 ]
 
@@ -152,6 +166,12 @@ MJCSImportConceptualSchema >> importFromFile [
 	self LCSSOn: self importActiveRecordClassListFromactiveRecordsTxt.
 	self resultsDictionary.
 	^ self createConceptsFrom: self resultsDictionary.
+]
+
+{ #category : #experiments }
+MJCSImportConceptualSchema >> importFromFile: called [
+
+	self importFromAClassGroup: (self findModelClassesFrom: (self importActiveRecordClassListFromFile: called)).
 ]
 
 { #category : #'initialize-release' }

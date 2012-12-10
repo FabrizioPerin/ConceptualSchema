@@ -34,8 +34,7 @@ MJCSImportDomainModel >> populateConceptualScemaWithDomainModel [
 				ifTrue: [
 					entitiesToAddToTheConcept addAll: entity withDeepInvokingClasses] ].
 		totalClassesFound addAll: entitiesToAddToTheConcept.
-		"concept addMappedEntitiesIn: entitiesToAddToTheConcept" ].
-	self halt.
+		concept addMappedEntitiesIn: entitiesToAddToTheConcept ].
 	^ self targetModel.
 ]
 
