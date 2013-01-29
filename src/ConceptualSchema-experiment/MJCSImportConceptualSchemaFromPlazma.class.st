@@ -28,7 +28,21 @@ MJCSImportConceptualSchemaFromPlazma >> importCCOfPlazsma [
 	self threshold: 10.
 	role :=self targetModel allRoles first.
 	self importFromAClassGroup: (role associatedClass collect: [:each | each implementor]) asMooseGroup.
-	(MJCSImportDomainModel on: self sourceModel) populateConceptualScemaWithDomainModel
+	
+]
+
+{ #category : #accessing }
+MJCSImportConceptualSchemaFromPlazma >> importCCOfPlazsmaWithoutLonelyClasses [
+	| role |
+	self threshold: 10.
+	role :=self targetModel allRoles first.
+	self importFromAClassGroupWithoutLonelyClasses: (role associatedClass collect: [:each | each implementor]) asMooseGroup.
+	
+]
+
+{ #category : #accessing }
+MJCSImportConceptualSchemaFromPlazma >> importDomainModel [
+	^(MJCSImportDomainModel on: self sourceModel) populateConceptualScemaWithDomainModel
 ]
 
 { #category : #accessing }
@@ -46,6 +60,6 @@ MJCSImportConceptualSchemaFromPlazma >> importFromAClassGroupWithoutLonelyClasse
 	| concepts called |
 
 	self LCSSOn: aMooseClassGroup.
-	concepts := self createConceptsFrom: self resultsDictionary.	
+	concepts := self createConceptsFrom: self resultsDictionary.
 	self populateSourceModelWith: concepts.
 ]
