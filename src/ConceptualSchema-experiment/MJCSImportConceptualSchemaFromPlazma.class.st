@@ -40,3 +40,12 @@ MJCSImportConceptualSchemaFromPlazma >> importFromAClassGroup: aMooseClassGroup 
 	concepts := self createConceptsFrom: self resultsDictionary.	
 	self populateSourceModelWith: concepts.
 ]
+
+{ #category : #accessing }
+MJCSImportConceptualSchemaFromPlazma >> importFromAClassGroupWithoutLonelyClasses: aMooseClassGroup [
+	| concepts called |
+
+	self LCSSOn: aMooseClassGroup.
+	concepts := self createConceptsFrom: self resultsDictionary.	
+	self populateSourceModelWith: concepts.
+]
