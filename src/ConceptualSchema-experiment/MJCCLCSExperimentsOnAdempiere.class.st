@@ -2,6 +2,7 @@ Class {
 	#name : #MJCCLCSExperimentsOnAdempiere,
 	#superclass : #Object,
 	#instVars : [
+		'sourceModel',
 		'targetModel',
 		'threshold',
 		'resultsDictionary'
@@ -10,8 +11,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MJCCLCSExperimentsOnAdempiere class >> on: aTargetModel [
-	^ self new targetModel: aTargetModel ; threshold: 3.
+MJCCLCSExperimentsOnAdempiere class >> on: aSourceModel [
+	^ self new sourceModel: aSourceModel.
 ]
 
 { #category : #'as yet unclassified' }
@@ -94,7 +95,7 @@ MJCCLCSExperimentsOnAdempiere >> createConceptsFrom: aDictionary [
 	| concepts |
 
 	concepts := OrderedCollection new.
-	
+
 	aDictionary keysAndValuesDo: [:key :value |
 		| tables concept |
 		tables := Set new.
@@ -103,7 +104,7 @@ MJCCLCSExperimentsOnAdempiere >> createConceptsFrom: aDictionary [
 		concept := ConceptualSchemaConcept named: key asString containing: value.
 		concept addMappedEntitiesIn: tables.
 		concepts add: concept. ].
-
+self halt.
 	^ concepts
 ]
 
@@ -129,14 +130,14 @@ MJCCLCSExperimentsOnAdempiere >> importActiveRecordClassListFromFile: aFileName 
 	classNames := OrderedCollection new.	
 	[(ln := stream nextLine) isNil] whileFalse: [ 
 		classNames add: ln].
-	
+
 	^classNames
 ]
 
 { #category : #'as yet unclassified' }
 MJCCLCSExperimentsOnAdempiere >> importActiveRecordClassListFromactiveRecordsTxt [
 
-	^self findModelClassesFrom: (self importActiveRecordClassListFromFile:  '/Users/fabrizioperin/Development/Pharo/Projects/CollaborazioneArcelli/activeRecords.txt')
+	^self findModelClassesFrom: (self importActiveRecordClassListFromFile:  '/Users/fabrizioperin/Development/Pharo/Projects/CollaborazioneArcelli/activeRecordsOLD.txt')
 
 ]
 
@@ -144,6 +145,7 @@ MJCCLCSExperimentsOnAdempiere >> importActiveRecordClassListFromactiveRecordsTxt
 MJCCLCSExperimentsOnAdempiere >> initialize [ 
 
 	resultsDictionary := Dictionary new.
+	targetModel := (MooseModel new name: 'ConceptualSchema') install.
 	
 	^self 
 ]
@@ -151,6 +153,16 @@ MJCCLCSExperimentsOnAdempiere >> initialize [
 { #category : #accessing }
 MJCCLCSExperimentsOnAdempiere >> resultsDictionary [
 	^resultsDictionary
+]
+
+{ #category : #accessing }
+MJCCLCSExperimentsOnAdempiere >> sourceModel [
+	^ sourceModel
+]
+
+{ #category : #accessing }
+MJCCLCSExperimentsOnAdempiere >> sourceModel: anObject [
+	sourceModel := anObject
 ]
 
 { #category : #accessing }
