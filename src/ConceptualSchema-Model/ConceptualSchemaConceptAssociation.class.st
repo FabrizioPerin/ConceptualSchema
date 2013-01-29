@@ -64,10 +64,10 @@ ConceptualSchemaConceptAssociation >> isDirected: aBoolean [
 ConceptualSchemaConceptAssociation >> printOn: aStream [
 
 	self from isNil	
-		ifFalse: [aStream nextPutAll: self from componentName].
+		ifFalse: [aStream nextPutAll: self from entityName].
 	aStream nextPutAll: ' -> '.
 	self to isNil	
-		ifFalse: [aStream nextPutAll: self to componentName].
+		ifFalse: [aStream nextPutAll: self to entityName].
 	aStream nextPutAll: ' (Concept Association)'
 ]
 

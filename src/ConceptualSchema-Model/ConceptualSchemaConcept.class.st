@@ -81,3 +81,10 @@ ConceptualSchemaConcept >> printOn: aStream [
 	aStream nextPutAll: self entityName.
 	aStream nextPutAll: ' (Concept)'
 ]
+
+{ #category : #'as yet unclassified' }
+ConceptualSchemaConcept >> writeSelfAsCVSEntryOn: aStream [
+	
+	aStream nextPutAll: (self entityName size asString , ';' , self entityName , ';' , ((self mappedEntities inject: '' into: [:tot :each | tot , each name asString , ', '] ) removeSuffix: ', ') , String cr).
+	^aStream 
+]
