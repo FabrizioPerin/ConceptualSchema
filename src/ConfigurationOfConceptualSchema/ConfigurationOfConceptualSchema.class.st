@@ -45,7 +45,7 @@ ConfigurationOfConceptualSchema >> default: spec [
 	spec for: #common do: [
 		spec blessing: #default.
 		spec description: ''.
-		spec repository: 'http://www.squeaksource.com/MooseJEE'.
+		spec repository: 'http://www.smalltalkhub.com/mc/FabrizioPerin/ConceptualSchema/main'.
 
 		spec 
 			package: 'ConceptualSchema-Model';
