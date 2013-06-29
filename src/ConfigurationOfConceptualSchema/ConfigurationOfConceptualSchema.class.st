@@ -52,12 +52,12 @@ ConfigurationOfConceptualSchema >> default: spec [
 			package: 'ConceptualSchema-Importer';
 			package: 'ConceptualSchema-experiment';
 			package: 'ConceptualSchema-Plazma-XMLElements';
-			package: 'Moose-JEE-DesignPattern'.
+			package: 'Moose-JEE-DesignPattern' with: [spec repository: 'http://www.smalltalkhub.com/mc/FabrizioPerin/MooseEE/main'].
 
 		"tests"
 		spec 
 			package: 'ConceptualSchema-Tests-Importer' with: [spec requires: #('ConceptualSchema-Importer').];
-			package: 'Moose-JEE-Tests-DesignPattern'.
+			package: 'Moose-JEE-Tests-DesignPattern' with: [spec repository: 'http://www.smalltalkhub.com/mc/FabrizioPerin/MooseEE/main'].
 	]
 ]
 
