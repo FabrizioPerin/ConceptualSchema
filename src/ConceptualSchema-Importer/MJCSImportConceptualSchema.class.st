@@ -121,7 +121,7 @@ MJCSImportConceptualSchema >> importActiveRecordClassListFromFile: aFileName [
 
 	stream := StandardFileStream fileNamed: aFileName.
 
-	classNames := OrderedCollection new.	
+	classNames := Set new.	
 	[(ln := stream nextLine) isNil] whileFalse: [ 
 		classNames add: ln].
 	
@@ -157,6 +157,13 @@ MJCSImportConceptualSchema >> importFromAClassGroup: aMooseClassGroup [
 MJCSImportConceptualSchema >> importFromActiveRecord [
 	
 	self importFromFile: '/Users/fabrizioperin/Development/Pharo/Projects/CollaborazioneArcelli/activeRecords.txt'.
+	
+]
+
+{ #category : #experiments }
+MJCSImportConceptualSchema >> importFromActiveRecordNew [
+	
+	self importFromFile: '/Users/fabrizioperin/Development/Pharo/Projects/CollaborazioneArcelli/Sources/ActiveRecordsPerPlazma.txt'.
 	
 ]
 
