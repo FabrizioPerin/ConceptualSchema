@@ -122,12 +122,19 @@ MJCCLCSExperimentsOnAdempiere >> findModelClassesFrom: aCollectionOfNames [
 ]
 
 { #category : #'as yet unclassified' }
+MJCCLCSExperimentsOnAdempiere >> importActiveRecordClassListFromDAOTxt [
+
+	^self findModelClassesFrom: (self importActiveRecordClassListFromFile:  '/Users/fabrizioperin/Development/Pharo/Projects/CollaborazioneArcelli/Sources/DAOForAdempiere.txt')
+
+]
+
+{ #category : #'as yet unclassified' }
 MJCCLCSExperimentsOnAdempiere >> importActiveRecordClassListFromFile: aFileName [
 	| ln stream classNames |
 
 	stream := StandardFileStream fileNamed: aFileName.
 
-	classNames := OrderedCollection new.	
+	classNames := Set new.	
 	[(ln := stream nextLine) isNil] whileFalse: [ 
 		classNames add: ln].
 

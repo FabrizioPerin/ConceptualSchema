@@ -46,7 +46,7 @@ MJCSImportConceptualSchemaFromAdempiere >> importActiveRecordClassListFromFile: 
 
 	stream := StandardFileStream fileNamed: aFileName.
 
-	classNames := OrderedCollection new.	
+	classNames := Set new.	
 	[(ln := stream nextLine) isNil] whileFalse: [ 
 		classNames add: ln].
 
